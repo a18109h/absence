@@ -26,12 +26,13 @@
         return;
       }
 
-      fetch('https://script.google.com/macros/s/AKfycbx21OT3fbp9_ZTZhOlKBDmARoYKa0VY1a8SMb1jMQpUgtVFKpE8I-9aD50aCh0w7458/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbzZ9iGBkyOjlqwKQF31CK71jcSljfl8Zp55ktOGwu4/exec', {
         method: 'POST',
         body: JSON.stringify({ studentId: studentId }),
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        mode: 'cors' // CORSを有効にする
       })
       .then(response => {
         if (response.ok) {
@@ -45,6 +46,5 @@
       });
     }
   </script>
-
 </body>
 </html>
