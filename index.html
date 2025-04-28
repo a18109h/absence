@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>出席登録フォーム</title>
+</head>
+<body>
+  <h1>出席登録フォーム</h1>
+
+  <label for="student-id">
+    学籍番号を入力してください<br>
+    ahは小文字半角、数字は半角です。<br>
+    (例) ah12345 :
+  </label><br>
+  <input type="text" id="student-id">
+  <button onclick="submitAttendance()">送信</button>
+
+  <p id="message"></p>
+
+  <script>
+    function submitAttendance() {
+      const studentId = document.getElementById('student-id').value.trim();
+      if (!studentId) {
+        document.getElementById('message').textContent = "学籍番号を入力してください。";
+        return;
+      }
+
+      fetch('https://script.google.com/macros/s/AKfycbyYHHvm-Hy02B3YxMOJUHaiiw4O4AeZr0LeAS2xcQZgJt52ajM91oEA4XpQpa7ail0/exec', {
+        method: 'POST',
+        body: JSON.stringify({ studentId: studentId }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById('message').textContent = "出席を記録しました！";
+        } else {
+          document.getElementById('message').textContent = "エラーが発生しました。";
+        }
+      })
+      .catch(error => {
+        document.getElementById('message').textContent = "通信エラーが発生しました。";
+      });
+    }
+  </script>
+
+</body>
+</html>
